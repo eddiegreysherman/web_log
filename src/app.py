@@ -1,9 +1,8 @@
 from flask import Flask
 
-# __name__ if we are running the application directly, __main__
 app = Flask(__name__)
 
-@app.route('/') # www.mysite.com/api
+@app.route('/')
 def hello_method():
     return "Hello, world!"
 

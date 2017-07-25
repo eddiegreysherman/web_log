@@ -1,6 +1,7 @@
 from flask import session
 from src.common.database import Database
 import uuid
+import datetime
 
 from src.models.blog import Blog
 
@@ -28,7 +29,7 @@ class User(object):
             return cls(**data)
 
     @staticmethod
-    def login_valid(self, email, password):
+    def login_valid(email, password):
         # user.login_valid("eddie@flaskcasts.com", "password")
         # Check whether a users email/password combo is correct.
         user = User.get_by_email(email)

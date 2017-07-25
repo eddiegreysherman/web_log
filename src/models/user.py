@@ -15,15 +15,13 @@ class User(object):
 
     @classmethod
     def get_by_email(cls, email):
-        data = Database.find_one("users",{"email": email})
-
+        data = Database.find_one("users", {"email": email})
         if data is not None:
             return cls(**data)
 
-
     @classmethod
     def get_by_id(cls, _id):
-        data = Database.find_one("users",{"_id": _id})
+        data = Database.find_one("users", {"_id": _id})
 
         if data is not None:
             return cls(**data)
@@ -41,17 +39,17 @@ class User(object):
 
     @classmethod
     def register(cls, email, password):
-        #if user exists, fail
-        #if not create user
+        # if user exists, fail
+        # if not create user
         user = cls.get_by_email(email)
         if user is None:
-            #the user does not exist so create.
-            new_user = cls(email,password)
+            # the user does not exist so create.
+            new_user = cls(email, password)
             new_user.save_to_mongo()
             session['email'] = email
             return True
         else:
-            #user already exists.
+            # user already exists.
             return False
         pass
 
@@ -84,15 +82,12 @@ class User(object):
                       content=content,
                       date=date)
 
-
-
     def json(self):
         return {
             "email": self.email,
             "_id": self._id,
-            "password": self.password # NOT SAFE TO SEND OVER NETWORK
+            "password": self.password  # NOT SAFE TO SEND OVER NETWORK
         }
-
 
     def save_to_mongo(self):
         Database.insert("users", self.json())
